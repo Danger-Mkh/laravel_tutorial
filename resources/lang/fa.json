@@ -1,0 +1,18 @@
+{
+    "Name": "نام",
+    "Home": "خانه",
+    "Login": "ورود",
+    "Register": "عضویت",
+    "Logout": "خروج",
+    "Dashboard": "پنل",
+    "Password": "رمز عبور",
+    "E-Mail Address": "آدرس ایمیل",
+    "Remember Me": "مرا به خاطر بسپار",
+    "Confirm Password": "تکرار رمز عبور",
+    "Reset Password": "باز نشانی رمز عبور",
+    "Forgot Your Password?": "رمز عبور خود را فراموش کردید؟",
+    "Verify Your Email Address": "ایمیل خود را تایید کنید",
+    "A fresh verification link has been sent to your email address.": "به تازگی لینک تاییدیه به آدرس ایمیل شما ارسال شد.",
+    "click here to request another": "برای درخواست دوباره کلیک کنید",
+    "Send Password Reset Link": "ارسال لینک باز نشانی رمز عبور"
+}
