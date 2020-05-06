@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\TellBook;
+use App\Contact;
 use Illuminate\Http\Request;
+use Illuminate\support\Facades\File;
 
-class TellBookController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,9 @@ class TellBookController extends Controller
      */
     public function index()
     {
-        $tellBooks = TellBook::all();
+        $Contacts = Contact::all();
 
-        return view('TellBook.index', compact('tellBooks'));
+        return view('Contact.index', compact('Contacts'));
     }
 
     /**
@@ -26,7 +27,7 @@ class TellBookController extends Controller
      */
     public function create()
     {
-        return view('TellBook.create');
+        return view('Contact.create');
     }
 
     /**
@@ -37,26 +38,34 @@ class TellBookController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'fullName' => 'required',
             'email' => 'required|email',
-            'mobile' => 'required'
+            'mobile' => 'required',
+            'img' => 'image',
         ]);
 
-        TellBook::create($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('img')) {
+            $data['img'] = $request->file('img')->store('avatar', 'public');
+        }
+
+        Contact::create($data);
 
         $request->session()->flash('message', 'Contact successfully Created !!!');
 
-        return redirect()->route('TellBook.index');
+        return redirect()->route('Contact.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\TellBook  $tellBook
+     * @param  \App\Contact  $Contact
      * @return \Illuminate\Http\Response
      */
-    public function show(TellBook $tellBook)
+    public function show(Contact $Contact)
     {
         //
     }
@@ -64,45 +73,59 @@ class TellBookController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TellBook  $tellBook
+     * @param  \App\Contact  $Contact
      * @return \Illuminate\Http\Response
      */
-    public function edit(TellBook $TellBook)
+    public function edit(Contact $Contact)
     {
-        return view('TellBook.edit', compact('TellBook'));
+        return view('Contact.edit', compact('Contact'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TellBook  $tellBook
+     * @param  \App\Contact  $Contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TellBook $TellBook)
+    public function update(Request $request, Contact $Contact)
     {
         $request->validate([
             'fullName' => 'required',
             'email' => 'required|email',
-            'mobile' => 'required'
+            'mobile' => 'required',
+            'img' => 'image',
         ]);
 
-        $TellBook->update($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('img')) {
+            if (File::exists('storage/' . $Contact->img)) {
+                File::delete('storage/' . $Contact->img);
+            }
+            $data['img'] = $request->file('img')->store('avatar', 'public');
+        }
+
+        $Contact->update($data);
 
         $request->session()->flash('message', 'Contact successfully Updated !!!');
 
-        return redirect()->route('TellBook.index');
+        return redirect()->route('Contact.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TellBook  $tellBook
+     * @param  \App\Contact  $Contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TellBook $TellBook, Request $request)
+    public function destroy(Contact $Contact, Request $request)
     {
-        $TellBook->delete();
+        if (File::exists('storage/' . $Contact->img)) {
+            File::delete('storage/' . $Contact->img);
+        }
+
+        $Contact->delete();
 
         $request->session()->flash('message', 'Contact successfully Deleted !!!');
 

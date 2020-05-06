@@ -5,39 +5,35 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <form method="post" action="{{ route('TellBook.store') }}">
+            <form method="post" action="{{ route('Contact.store') }}" enctype="multipart/form-data">
                 @csrf
                  <div class="form-group">
                     <label>Full Name :</label>
-                    <input type="text" name="fullName" class="form-control" placeholder="Enter Full Name">
+                    <input type="text" name="fullName" class="form-control" value="{{ old('fullName') }}" placeholder="Enter Full Name">
                 </div>
                 <div class="form-group">
                     <label>Email address</label>
-                    <input type="email" name="email" class="form-control" placeholder="Enter email">
+                    <input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="Enter email">
                 </div>
                 <div class="form-group">
                     <label>Mobile :</label>
-                    <input type="text" name="mobile" class="form-control" placeholder="Enter Mobile">
+                    <input type="text" name="mobile" class="form-control" value="{{ old('mobile') }}" placeholder="Enter Mobile">
                 </div>
                 <div class="form-group">
                     <label>Phone :</label>
-                    <input type="text" name="phone" class="form-control" placeholder="Enter Phone">
+                    <input type="text" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Enter Phone">
                 </div>
                 <div class="form-group">
                     <label>Address :</label>
-                    <input type="text" name="address" class="form-control" placeholder="Enter Address">
-                </div>
-                <div class="form-group">
-                    <label>Slug :</label>
-                    <input type="text" name="slug" class="form-control" placeholder="Enter Slug">
+                    <input type="text" name="address" class="form-control" value="{{ old('address') }}" placeholder="Enter Address">
                 </div>
                 <div class="form-group">
                     <label>Image :</label>
-                    <input type="file" name="img" class="form-control" placeholder="Enter Image">
+                    <input type="file" name="img" class="form-control" value="{{ old('img') }}" placeholder="Enter Image">
                 </div>
                 <div class="form-group">
                     <label>Description :</label>
-                    <input type="text" name="desc" class="form-control" placeholder="Enter Description">
+                    <input type="text" name="desc" class="form-control" value="{{ old('desc') }}" placeholder="Enter Description">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

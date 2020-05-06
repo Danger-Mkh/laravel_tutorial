@@ -10,7 +10,7 @@
                     {{ session('message') }}
                 </div>
             @endif
-            <a href="{{ route('TellBook.create') }}" class="btn btn-primary">Create Contact</a>
+            <a href="{{ route('Contact.create') }}" class="btn btn-primary">Create Contact</a>
             <table class="table">
                 <thead>
                     <tr>
@@ -20,31 +20,33 @@
                         <th scope="col">Mobile</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Address</th>
-                        <th scope="col">Slug</th>
                         <th scope="col">Description</th>
                         <th scope="col">Created Time</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($tellBooks as $tellbook)
+                    @foreach($Contacts as $Contact)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $tellbook->fullName }}</td>
-                            <td>{{ $tellbook->email }}</td>
-                            <td>{{ $tellbook->mobile }}</td>
-                            <td>{{ $tellbook->phone }}</td>
-                            <td>{{ $tellbook->address }}</td>
-                            <td>{{ $tellbook->slug }}</td>
-                            <td>{{ $tellbook->desc }}</td>
-                            <td>{{ $tellbook->created_at->diffForHumans() }}</td>
+                            <td>{{ $Contact->fullName }}</td>
+                            <td>{{ $Contact->email }}</td>
+                            <td>{{ $Contact->mobile }}</td>
+                            <td>{{ $Contact->phone }}</td>
+                            <td>{{ $Contact->address }}</td>
+                            <td>{{ $Contact->desc }}</td>
+                            <td>{{ $Contact->created_at->diffForHumans() }}</td>
                             <td>
-                                <form action="{{ route('TellBook.destroy', ['TellBook' => $tellbook->id] ) }}" method="post">
+                                <img src="{{ asset('storage/' . $Contact->img) }}" style="max-width: 150px;">
+                            </td>
+                            <td>
+                                <form action="{{ route('Contact.destroy', ['Contact' => $Contact->id] ) }}" method="post">
                                     @method('delete')
                                     @csrf
                                     <input type="submit" class="btn btn-danger" value="Delete">
                                 </form>
-                                <a href="{{ route('TellBook.edit', ['TellBook' => $tellbook->id] )}}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('Contact.edit', ['Contact' => $Contact->id] )}}" class="btn btn-info">Edit</a>
                             </td>
                         </tr>
                     @endforeach
