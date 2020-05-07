@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Contact;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\File;
@@ -27,7 +28,9 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('Contact.create');
+        $categorys = Category::all();
+
+        return view('Contact.create', compact('categorys'));
     }
 
     /**

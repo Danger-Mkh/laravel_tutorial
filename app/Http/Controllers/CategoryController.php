@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $Categorys = Category::all();
+
+        return view('category.index', compact('Categorys'));
     }
 
     /**
@@ -22,9 +24,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return view('Category.create');
     }
 
     /**
@@ -35,7 +37,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|min:3',
+            'desc' => 'nullable'
+        ]);
+
+        Category::create($data);
+
+        $request->session()->flash('message', 'Category successfully Created !!!');
+
+        return redirect()->route('Category.index');
     }
 
     /**
@@ -44,9 +55,9 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Category $Category)
     {
-        //
+        return view('Category.show', compact('Category'));
     }
 
     /**
@@ -55,9 +66,9 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Category $Category)
     {
-        //
+        return view('Category.edit', compact('Category'));
     }
 
     /**
@@ -67,9 +78,18 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Category $Category)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|min:3',
+            'desc' => 'nullable'
+        ]);
+
+        $Category->update($data);
+
+        $request->session()->flash('message', 'Category successfully Updated !!!');
+
+        return redirect()->route('Category.index');
     }
 
     /**
@@ -78,8 +98,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $Category, Request $request)
     {
-        //
+        $Category->delete();
+
+        $request->session()->flash('message', 'Category successfully Deleted !!!');
+
+        return back();
     }
 }

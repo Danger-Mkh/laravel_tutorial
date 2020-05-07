@@ -21,7 +21,7 @@
                         <th scope="col">Phone</th>
                         <th scope="col">Address</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Created Time</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Image</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -36,7 +36,7 @@
                             <td>{{ $Contact->phone }}</td>
                             <td>{{ $Contact->address }}</td>
                             <td>{{ $Contact->desc }}</td>
-                            <td>{{ $Contact->created_at->diffForHumans() }}</td>
+                            <td>{{ $Contact->category->title }}</td>
                             <td>
                                 <img src="{{ asset('storage/' . $Contact->img) }}" style="max-width: 150px;">
                             </td>

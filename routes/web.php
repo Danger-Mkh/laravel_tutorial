@@ -21,4 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('Contact', 'ContactController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('Contact', 'ContactController');
+    Route::resource('Category', 'CategoryController');
+});

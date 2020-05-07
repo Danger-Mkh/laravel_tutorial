@@ -35,6 +35,15 @@
                     <label>Description :</label>
                     <input type="text" name="desc" class="form-control" value="{{ old('desc') }}" placeholder="Enter Description">
                 </div>
+                <div class="form-group">
+                    <label class="my-1 mr-2" >Category</label>
+                    <select name="category_id" class="custom-select my-1 mr-sm-2">
+                        <option selected disabled>Choose...</option>
+                        @foreach ($categorys as $category)
+                            <option value="{{ $category->id }}">{{ $category->title }}</option>    
+                        @endforeach
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
